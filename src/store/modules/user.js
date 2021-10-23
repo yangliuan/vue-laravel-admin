@@ -6,7 +6,6 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: '',
     menu: []
   }
 }
@@ -23,9 +22,6 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
-  },
   SET_MENU: (state, menu) => {
     state.menu = menu
   }
@@ -41,7 +37,7 @@ const actions = {
         commit('SET_TOKEN', token)
         setToken(token)
         resolve()
-        console.log(token)
+        console.log('login')
       }).catch(error => {
         reject(error)
       })
@@ -49,19 +45,14 @@ const actions = {
   },
 
   // get user info
-  getInfo({ commit, state }) {
+  getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
         const { admin,menu } = response
-
-        if (!data) {
-          return reject('Verification failed, please Login again.')
-        }
-
         commit('SET_NAME', admin.name)
         commit('SET_MENU', menu)
-        //commit('SET_AVATAR', avatar)
-        resolve(data)
+        resolve(response)
+        console.log('getInfo')
       }).catch(error => {
         reject(error)
       })
@@ -69,9 +60,9 @@ const actions = {
   },
 
   // user logout
-  logout({ commit, state }) {
+  logout({ commit }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
+      logout().then(() => {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')

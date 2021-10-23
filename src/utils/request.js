@@ -18,10 +18,10 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // config.withCredentials = true // 需要跨域打开此配置
-
     if (store.getters.token) {
       // please modify it according to the actual situation
-      config.headers['Authorization'] = 'Bearer '.getToken()
+      config.headers['Authorization'] = `Bearer ${getToken()}`
+      console.log('vuex_token')
     }
 
     return config

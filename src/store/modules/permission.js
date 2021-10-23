@@ -12,7 +12,7 @@ import Layout from '@/layout'
 function getRouter(node, component, isRoot = false) {
 
   let temp = {
-      path: isRoot ? node.url : node.url.replace('/', ''),
+    path: isRoot ? node.gui_behavior : node.gui_behavior.replace('/', ''),
       component: component,
       name: node.name,
       meta: { title: node.name, icon: '' },
@@ -117,15 +117,25 @@ function getOwnRoutes(menus) {
 //设置系统菜单和路由
 const actions = {
   generateRoutes({ commit }) {
-
     return new Promise(resolve => {
       const { menu } = user.state
-
+      console.log(6)
       let accessedRoutes = getOwnRoutes(menu)
-
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
   })
+    return new Promise(resolve => {
+        let accessedRoutes
+        if (roles.includes('admin')) {
+          accessedRoutes = asyncRoutes || []
+        } else {
+          accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+        }
+        console.log(accessedRoutes)
+
+        commit('SET_ROUTES', accessedRoutes)
+        resolve(accessedRoutes)
+    })
   }
 }
 

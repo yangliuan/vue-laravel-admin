@@ -19,8 +19,8 @@ router.beforeEach(async(to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken()
-
   if (hasToken) {
+    console.log(hasToken)
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
@@ -28,31 +28,23 @@ router.beforeEach(async(to, from, next) => {
     } else {
       const hasMenu = store.getters.menu && store.getters.menu.length > 0
       if (hasMenu) {
-        const { menu } = await store.dispatch('user/getInfo')
-
-        // generate accessible routes map based on roles
-        const accessRoutes = await store.dispatch('permission/generateRoutes', menu)
-
-        // dynamically add accessible routes
-        router.addRoutes(accessRoutes)
-
-        // hack method to ensure that addRoutes is complete
-        // set the replace: true, so the navigation will not leave a history record
-        next({ ...to, replace: true })
+        next()
       } else {
         try {
           // get user info
           const { menu } = await store.dispatch('user/getInfo')
+          console.log(5, menu)
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', menu)
+          console.log('accessRoutes',accessRoutes)
           // dynamically add accessible routes
-          router.addRoutes(accessRoutes)
+          //router.addRoutes(accessRoutes)
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (error) {
           // remove token and go to login page to re-login
-          await store.dispatch('user/resetToken')
+          // await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)
           NProgress.done()
@@ -67,7 +59,7 @@ router.beforeEach(async(to, from, next) => {
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(`/login?redirect=${to.path}`)
+      //next(`/login?redirect=${to.path}`)
       NProgress.done()
     }
   }
