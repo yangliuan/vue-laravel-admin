@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
@@ -10,7 +10,7 @@ const service = axios.create({
   timeout: 5000, // request timeout
   headers: {
     'Accept': 'application/json',
-    //'Content-Type': 'application/json', // json格式数据
+    'Content-Type': 'application/json', // json格式数据
   }
 })
 
