@@ -62,8 +62,33 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '仪表盘', icon: 'fa fa-home', affix: true },
-        roles: ['admin', 'editor', 'users']
+        meta: { title: '仪表盘', icon: 'fa fa-home', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/permission',
+    component: Layout,
+    name: 'permission',
+    meta: { title: '权限管理', icon: 'link' },
+    children: [
+      {
+        path: '/administrator',
+        name: 'administrator',
+        component: () => import('@/views/permission/admin/index'),
+        meta: { title: '管理员' }
+      },
+      {
+        path: '/admingroup',
+        name: 'admingroup',
+        component: () => import('@/views/permission/group/index'),
+        meta: { title: '管理组' }
+      },
+      {
+        path: '/syslog',
+        name: 'syslog',
+        component: () => import('@/views/permission/syslog/index'),
+        meta: { title: '系统日志' }
       }
     ]
   }

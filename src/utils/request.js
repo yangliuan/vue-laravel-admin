@@ -21,7 +21,6 @@ service.interceptors.request.use(
     if (store.getters.token) {
       // please modify it according to the actual situation
       config.headers['Authorization'] = `Bearer ${getToken()}`
-      console.log('vuex_token')
     }
 
     return config

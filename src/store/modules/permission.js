@@ -15,7 +15,7 @@ function getRouter(node, component, isRoot = false) {
     path: isRoot ? node.gui_behavior : node.gui_behavior.replace('/', ''),
       component: component,
       name: node.name,
-      meta: { title: node.name, icon: '' },
+      meta: { title: node.name, icon: ''},
       hidden: (node.gui_type > 2)
   }
 
@@ -119,7 +119,7 @@ const actions = {
   generateRoutes({ commit }) {
     return new Promise(resolve => {
       const { menu } = user.state
-      console.log(6)
+      console.log('menu',menu)
       let accessedRoutes = getOwnRoutes(menu)
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

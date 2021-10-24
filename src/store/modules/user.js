@@ -52,7 +52,6 @@ const actions = {
         commit('SET_NAME', admin.name)
         commit('SET_MENU', menu)
         resolve(response)
-        console.log('getInfo')
       }).catch(error => {
         reject(error)
       })
