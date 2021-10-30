@@ -126,15 +126,14 @@ export default {
     this.getList()
     getRules().then((res) => {
       for (let i = 0; i < res.length; i++) {
-        this.checkGroup[i] = { name: res[i].title, check: false }
+        this.checkGroup[i] = { name: res[i].name, check: false }
         for (let j = 0; j < res[i].children.length; j++) {
           if (!this.checkList[i]) {
             this.checkList[i] = []
           }
-          this.checkList[i][j] = { name: res[i].children[j].title, value: res[i].children[j].path, check: false, id: res[i].children[j].id }
+          this.checkList[i][j] = { name: res[i].children[j].name, value: res[i].children[j].gui_behavior, check: false, id: res[i].children[j].id }
         }
       }
-      console.log(JSON.stringify(this.checkList))
       this.$forceUpdate()
     })
   },
@@ -229,9 +228,10 @@ export default {
       this.reset()
       detail(obj.id).then((res) => {
         const auth = [] // 权限集合
+        console.log(JSON.stringify(res.cache));
         for (let i = 0; i < res.cache.length; i++) {
           for (let j = 0; j < res.cache[i].children.length; j++) {
-            auth.push(res.cache[i].children[j].path)
+            auth.push(res.cache[i].children[j].gui_behavior)
           }
         }
         for (let i = 0; i < this.checkList.length; i++) {
