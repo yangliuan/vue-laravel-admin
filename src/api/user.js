@@ -15,9 +15,17 @@ export function getInfo(token) {
   })
 }
 
+export function syslog() {
+  return request({
+    url: 'api/admin/syslogs',
+    method: 'get'
+  })
+}
+
 export function logout() {
   return request({
     url: 'api/admin/logout',
     method: 'post'
   })
 }
+

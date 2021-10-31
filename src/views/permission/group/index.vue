@@ -10,7 +10,7 @@
     <el-table
       border
       :data="tableData"
-      style="width: 60%"
+      style="width: 90%"
     >
       <el-table-column
         label="ID"
