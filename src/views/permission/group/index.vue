@@ -9,25 +9,27 @@
     </div>
     <el-table
       border
+      stripe
       :data="tableData"
-      style="width: 90%"
+      style="width: 100%"
     >
       <el-table-column
         label="ID"
         prop="id"
-        width="80"
+        width="100"
+        fixed
       />
       <el-table-column
         label="管理组名称"
         prop="title"
-        width="160"
+        width="auto"
       />
       <el-table-column
         label="管理组介绍"
         prop="desc"
-        width="330"
+        width="auto"
       />
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="200" fixed="right">
         <template slot-scope="scope">
           <div class="edit-wrapper">
             <el-link class="edit" @click="onEditClick(scope.row)">编辑</el-link>

@@ -7,43 +7,49 @@
     <el-table
       border
       :data="tableData"
-      style="width: 90%"
+      highlight-current-row
+      @current-change="handleCurrentChange"
+      style="width: 100%"
     >
     <el-table-column
         label="ID"
         prop="id"
-        width="80"
+        width="100"
+        fixed
       />
-      <el-table-column
-        label="管理员名字"
-        prop="admin.name"
-        width="160"
-      />
-      <el-table-column
-        label="管理员登录账号"
-        prop="admin.account"
-        width="160"
-      />
-      <el-table-column
-        label="IP"
-        prop="ip"
-        width="160"
-      />
-      <el-table-column
-        label="请求方法"
-        prop="method"
-        width="160"
-      />
-      <el-table-column
-        label="请求参数"
-        prop="method"
-        width="160"
-      />
-      <el-table-column
-        label="创建时间"
-        prop="created_at"
-        width="160"
-      />
+    <el-table-column
+      label="管理员信息"
+      prop="admin"
+      width="auto"
+      :formatter="formatter"
+    />
+    <el-table-column
+      label="操作内容"
+      prop="log"
+      width="auto"
+    />
+    <el-table-column
+      label="IP"
+      prop="ip"
+      width="100"
+    />
+    <el-table-column
+      label="请求方法"
+      prop="method"
+      width="80"
+    />
+    <el-table-column
+      label="请求参数"
+      prop="params"
+      width="auto"
+      :formatter="formatter"
+    />
+    <el-table-column
+      label="创建时间"
+      prop="created_at"
+      width="200"
+      fixed="right"
+    />
     </el-table>
     <el-pagination
       layout="prev, pager, next"
@@ -76,6 +82,9 @@ export default {
     this.getList()
   },
   methods: {
+    handleCurrentChange(val) {
+      this.currentRow = val;
+    },
     getList() {
       this.loading = true
       syslog(`?page=${this.page}&per_page=${this.limit}`).then((res) => {
@@ -84,6 +93,15 @@ export default {
       }).finally(() => {
         this.loading = false
       })
+    },
+    formatter:function(row,column){
+      //console.log(column)
+      switch (column.label) {
+        case '管理员信息':
+          return '登录账号:'+row.admin.account+' 名称:'+row.admin.name+' AID:'+row.admin.id
+        case '请求参数':
+          return JSON.stringify(row.params)
+      }
     },
     onPrevClick() {
       if (this.page > 1) {

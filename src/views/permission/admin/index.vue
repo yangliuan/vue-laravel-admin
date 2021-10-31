@@ -9,33 +9,35 @@
     </div>
     <el-table
       border
+      stripe
       :data="tableData"
-      style="width: 90%"
+      style="width: 100%"
     >
       <el-table-column
         label="ID"
         prop="id"
-        width="80"
+        width="100"
+        fixed
       />
       <el-table-column
         label="管理员名字"
         prop="name"
-        width="160"
+        width="auto"
       />
       <el-table-column
         label="登录账号"
         prop="account"
-        width="160"
+        width="auto"
       />
       <el-table-column
         label="手机号"
         prop="mobile"
-        width="160"
+        width="auto"
       />
       <el-table-column
         label="归属管理组"
         prop="group"
-        width="160"
+        width="auto"
       >
         <template slot-scope="scope">
           <div>{{ scope.row.group.title }}</div>
@@ -49,7 +51,7 @@
           <div>{{ scope.row.status == 1 ? '已启用' : '已禁用' }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="200" fixed="right">
         <template slot-scope="scope">
           <div class="edit-wrapper">
             <el-link class="edit" @click="onEditClick(scope.row)">编辑</el-link>
