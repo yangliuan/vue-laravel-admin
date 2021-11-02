@@ -8,17 +8,17 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
     url: 'api/admin/info',
     method: 'get'
   })
 }
 
-export function syslog() {
+export function syslog(query) {
   return request({
-    url: 'api/admin/syslogs',
-    method: 'get'
+    url: `api/admin/syslogs${query || ''}`,
+    method: 'get',
   })
 }
 

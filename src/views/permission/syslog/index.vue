@@ -4,6 +4,36 @@
     element-loading-text="加载中..."
     class="tableWrapper"
   >
+  <div class="search">
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+
+      <el-form-item label="开始时间">
+        <el-date-picker
+          v-model="start_at"
+          type="datetime"
+          placeholder="选择日期时间"
+          align="right"
+          :picker-options="pickerOptions">
+        </el-date-picker>
+      </el-form-item>
+
+    <el-form-item label="结束时间">
+      <el-date-picker
+        v-model="end_at"
+        type="datetime"
+        placeholder="选择日期时间"
+        align="right"
+        :picker-options="pickerOptions">
+      </el-date-picker>
+    </el-form-item>
+
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit">搜索</el-button>
+    </el-form-item>
+
+    </el-form>
+  </div>
+
     <el-table
       border
       :data="tableData"
@@ -75,13 +105,51 @@ export default {
       page: 1,
       limit: 10,
       total: 0,
-      dialogLoading: false
+      dialogLoading: false,
+      formInline: {},
+      pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+          },
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }]
+      },
+      start_at: '',
+      end_at: ''
     }
   },
   created() {
     this.getList()
   },
   methods: {
+    onSubmit() {
+      console.log('submit!');
+      this.loading = true
+      syslog(`?page=${this.page}&per_page=${this.limit}&start_at=${this.start_at}&end_at=${this.end_at}`).then((res) => {
+        this.tableData = res.data
+        this.total = res.total
+      }).finally(() => {
+        this.loading = false
+      })
+    },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
@@ -162,5 +230,8 @@ export default {
 }
 .roleWrapper {
   margin-left: 100px;
+}
+.search {
+  margin: 20px;
 }
 </style>
