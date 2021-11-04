@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function featchIndex(query) {
+  return request({
+    url: 'api/admin/admin',
+    method: 'get',
+    params: query
+  })
+}
+
 export function getList(params) {
   return request({
     url: `api/admin/admin${params || ''}`,
