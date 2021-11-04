@@ -85,6 +85,13 @@ export const constantRoutes = [
         hidden: true,
       },
       {
+        path: '/administrator-edit',
+        name: 'administrator edit',
+        component: () => import('@/views/permission/admin/edit'),
+        meta: { title: '编辑管理员' },
+        hidden: true,
+      },
+      {
         path: '/admingroup',
         name: 'admingroup',
         component: () => import('@/views/permission/group/index'),
