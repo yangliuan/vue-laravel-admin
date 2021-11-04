@@ -8,6 +8,13 @@ export function featchIndex(query) {
   })
 }
 
+export function switchStatus(id) {
+  return request({
+    url: `api/admin/admin/status/${id}`,
+    method: 'put',
+  })
+}
+
 export function getList(params) {
   return request({
     url: `api/admin/admin${params || ''}`,

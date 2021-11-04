@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { PermissionRouteMap, SafeRouteMap } from './routerMap.js'
 
 Vue.use(Router)
 
@@ -70,13 +69,20 @@ export const constantRoutes = [
     path: '/permission',
     component: Layout,
     name: 'permission',
-    meta: { title: '权限管理', icon: 'link' },
+    meta: { title: '权限管理', icon: 'lock', affix: true },
     children: [
       {
         path: '/administrator',
         name: 'administrator',
         component: () => import('@/views/permission/admin/index'),
         meta: { title: '管理员' }
+      },
+      {
+        path: '/administrator-create',
+        name: 'administrator create',
+        component: () => import('@/views/permission/admin/create'),
+        meta: { title: '添加管理员' },
+        hidden: true,
       },
       {
         path: '/admingroup',
@@ -100,7 +106,7 @@ export const otherRouter = [{ path: '*', redirect: '/404', hidden: true }]
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
-export const asyncRoutes = PermissionRouteMap
+//export const asyncRoutes = PermissionRouteMap
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
