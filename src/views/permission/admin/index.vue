@@ -34,7 +34,7 @@
           <el-table-column align="center" label="启用状态" width="100">
             <template v-slot="scope">
               <span v-if="scope.row.id == 1">{{ scope.row.status == 1 ? '启用' : '禁用' }}</span>
-              <el-button type="primary" v-else @click="switchStatusClick(scope.row)">{{ scope.row.status == 1 ? '启用' : '禁用' }}</el-button>
+              <el-button type="primary" plain size="small" v-else @click="switchStatusClick(scope.row)">{{ scope.row.status == 1 ? '启用' : '禁用' }}</el-button>
             </template>
           </el-table-column>
 
