@@ -1,5 +1,11 @@
 <template>
-<div>
-
-</div>
+  <admin-detail :is-edit="true" />
 </template>
+
+<script>
+import AdminDetail from './components/AdminDetail'
+export default {
+  name: 'EditAdmin',
+  components: { AdminDetail }
+}
+</script>

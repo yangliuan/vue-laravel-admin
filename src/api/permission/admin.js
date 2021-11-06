@@ -18,7 +18,7 @@ export function storeAdmin(params) {
 
 export function getAdmin(id) {
   return request({
-    url: `api/admin/group/${id}`,
+    url: `api/admin/admin/${id}`,
     method: 'get'
   })
 }

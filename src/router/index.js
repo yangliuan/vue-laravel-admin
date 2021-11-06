@@ -72,30 +72,44 @@ export const constantRoutes = [
     meta: { title: '权限管理', icon: 'lock', affix: true },
     children: [
       {
-        path: '/administrator',
-        name: 'administrator',
+        path: 'admin',
+        name: 'IndexAdmin',
         component: () => import('@/views/permission/admin/index'),
         meta: { title: '管理员' }
       },
       {
-        path: '/administrator-create',
-        name: 'administrator create',
+        path: 'admin/create',
+        name: 'CreateAdmin',
         component: () => import('@/views/permission/admin/create'),
         meta: { title: '添加管理员' },
         hidden: true,
       },
       {
-        path: '/administrator-edit',
+        path: 'admin/edit/:id(\\d+)',
         name: 'administrator edit',
         component: () => import('@/views/permission/admin/edit'),
         meta: { title: '编辑管理员' },
         hidden: true,
       },
       {
-        path: '/admingroup',
-        name: 'admingroup',
+        path: 'admingroup',
+        name: 'IndexAdmingroup',
         component: () => import('@/views/permission/group/index'),
         meta: { title: '管理组' }
+      },
+      {
+        path: 'admingroup/create',
+        name: 'CreateAdmingroup',
+        component: () => import('@/views/permission/group/create'),
+        meta: { title: '添加管理组' },
+        hidden: true,
+      },
+      {
+        path: 'admingroup/edit/:id(\\d+)',
+        name: 'EditAdmingroup',
+        component: () => import('@/views/permission/group/edit'),
+        meta: { title: '更新管理组' },
+        hidden: true,
       },
       {
         path: '/syslog',

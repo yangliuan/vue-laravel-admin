@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="top-container">
-      <router-link :to="'/administrator-create'">
+      <router-link :to="'/permission/admin/create'">
         <el-button type="primary">添加</el-button>
       </router-link>
     </div>
@@ -52,7 +52,7 @@
 
       <el-table-column align="center" label="操作" width="200" fixed="right">
         <template v-slot="scope">
-          <router-link :to="'/example/edit/'+scope.row.id">
+          <router-link :to="'/permission/admin/edit/'+scope.row.id">
             <el-button type="text">编辑</el-button>
           </router-link>
           <el-button type="text" v-if="scope.row.id > 1" @click="destroyClick(scope.row.id)">删除</el-button>

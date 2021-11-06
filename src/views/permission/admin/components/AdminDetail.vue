@@ -7,7 +7,7 @@
       </el-form-item>
 
       <el-form-item label="归属管理组" prop="group_id">
-        <el-select v-model="postForm.group_id" multiple filterable remote reserve-keyword placeholder="请输入管理组名称" :remote-method="getGroupSelectMenus" :loading="loading">
+        <el-select v-model="postForm.group_id" filterable placeholder="请选择管理组" :loading="loading">
           <el-option v-for="item in group_select_menus" :key="item.id" :label="item.title" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
@@ -39,10 +39,11 @@
 
 <script>
 import { groupSelectMenus } from '@/api/permission/group.js'
+import { storeAdmin, getAdmin, updateAdmin } from '@/api/permission/admin.js'
 
 const defaultForm = {
   name: '',
-  group_id: 0,
+  group_id: '',
   status: 1,
   mobile: '',
   account: '',
@@ -76,13 +77,24 @@ export default {
       ]
     }
   },
+  created() {
+    this.getGroupSelectMenus()
+    if (this.isEdit) {
+      const id = this.$route.params && this.$route.params.id
+      this.fetchData(id)
+      this.rules.password[0].required = false
+    }
+  },
   methods: {
+    fetchData(id) {
+      getAdmin(id).then(response => {
+        this.postForm = response
+      })
+    },
     getGroupSelectMenus(query) {
-      console.log(query)
       groupSelectMenus(query).then(response => {
         this.loading = true
         this.group_select_menus = response
-      }).finally(()=>{
         this.loading = false
       })
     },
@@ -92,6 +104,11 @@ export default {
           this.loading = true
           if(this.isEdit === false){
             alert('添加')
+            console.log(this.postForm)
+            storeAdmin(this.postForm).then(response => {
+              this.loading = false
+              this.$router.push({path: '/permission/admin'})
+            })
           }else{
             alert('更新')
           }
