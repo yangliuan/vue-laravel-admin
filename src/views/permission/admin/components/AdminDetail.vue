@@ -1,14 +1,14 @@
 <template>
-  <div class="createPost-container">
+  <div class="app-container">
 
-    <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+    <el-form ref="postForm" :model="postForm" :rules="rules" label-width="100px" class="form-container">
       <el-form-item label="管理员名字" prop="name">
         <el-input v-model="postForm.name" placeholder="请输入管理员名称" clearable />
       </el-form-item>
 
       <el-form-item label="归属管理组" prop="group_id">
-        <el-select v-model="postForm.group_id" multiple filterable remote reserve-keyword placeholder="请输入管理组名称" :remote-method="remoteMethod" :loading="loading">
-          <el-option v-for="item in group_select_menus" :key="item.value" :label="item.label" :value="item.value" />
+        <el-select v-model="postForm.group_id" multiple filterable remote reserve-keyword placeholder="请输入管理组名称" :remote-method="getGroupSelectMenus" :loading="loading">
+          <el-option v-for="item in group_select_menus" :key="item.id" :label="item.title" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
 
@@ -28,6 +28,10 @@
         <el-input v-model="postForm.password" placeholder="请输入密码" show-password />
       </el-form-item>
 
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('postForm')">保存</el-button>
+      </el-form-item>
+
     </el-form>
 
   </div>
@@ -39,7 +43,7 @@ import { groupSelectMenus } from '@/api/permission/group.js'
 const defaultForm = {
   name: '',
   group_id: 0,
-  status: 0,
+  status: 1,
   mobile: '',
   account: '',
   password: ''
@@ -58,14 +62,18 @@ export default {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       rules: {
-
+        name: [{ required: true, message: '请输入管理员名称', trigger: 'blur' },{ min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
+        group_id: [{ required: true, message: '请选择管理组', trigger: 'blur' }],
+        status: [{ required: true, message: '请选择启用状态', trigger: 'blur' }],
+        mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+        account: [{ required: true, message: '请输入登录账号', trigger: 'blur' },{ min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' },{ min: 6, max: 20, message: '长度在6~20之间', trigger: 'blur' }],
       },
       group_select_menus: [],
       status_radios: [
         { label: '启用', value: 1 },
         { label: '禁用', value: 0 }
       ]
-
     }
   },
   methods: {
@@ -74,17 +82,25 @@ export default {
       groupSelectMenus(query).then(response => {
         this.loading = true
         this.group_select_menus = response
+      }).finally(()=>{
+        this.loading = false
       })
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.loading = true
+          if(this.isEdit === false){
+            alert('添加')
+          }else{
+            alert('更新')
+          }
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "~@/styles/mixin.scss";
-
-.createPost-container {
-  position: relative;
-}
-
-</style>

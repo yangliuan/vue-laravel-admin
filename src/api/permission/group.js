@@ -59,3 +59,4 @@ export function updateRules(params, id) {
     data: params
   })
 }
+
