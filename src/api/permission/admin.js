@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function featchIndex(query) {
+export function indexAdmin(query) {
   return request({
     url: 'api/admin/admin',
     method: 'get',
@@ -8,29 +8,7 @@ export function featchIndex(query) {
   })
 }
 
-export function switchStatus(id) {
-  return request({
-    url: `api/admin/admin/status/${id}`,
-    method: 'put',
-  })
-}
-
-export function getList(params) {
-  return request({
-    url: `api/admin/admin${params || ''}`,
-    method: 'get'
-  })
-}
-
-export function update(params, id) {
-  return request({
-    url: `api/admin/admin/${id}`,
-    method: 'put',
-    data: params
-  })
-}
-
-export function add(params) {
+export function storeAdmin(params) {
   return request({
     url: 'api/admin/admin',
     method: 'post',
@@ -38,38 +16,31 @@ export function add(params) {
   })
 }
 
-export function del(id) {
-  return request({
-    url: `api/admin/admin/${id}`,
-    method: 'DELETE'
-  })
-}
-
-export function detail(id) {
+export function getAdmin(id) {
   return request({
     url: `api/admin/group/${id}`,
     method: 'get'
   })
 }
 
-export function getRules(params) {
+export function updateAdmin(params, id) {
   return request({
-    url: `api/admin/group/rules${params || ''}`,
-    method: 'get'
-  })
-}
-
-export function updateRules(params, id) {
-  return request({
-    url: `api/admin/group/set/${id}`,
+    url: `api/admin/admin/${id}`,
     method: 'put',
     data: params
   })
 }
 
-export function getGroup(params) {
+export function destroyAdmin(id) {
   return request({
-    url: `api/admin/group${params || ''}`,
-    method: 'get'
+    url: `api/admin/admin/${id}`,
+    method: 'DELETE'
+  })
+}
+
+export function switchStatus(id) {
+  return request({
+    url: `api/admin/admin/status/${id}`,
+    method: 'put',
   })
 }

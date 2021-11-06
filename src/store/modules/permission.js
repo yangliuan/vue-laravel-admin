@@ -1,4 +1,4 @@
-import { asyncRoutes, constantRoutes,otherRouter } from '@/router'
+import {constantRoutes,otherRouter } from '@/router'
 import store from '..'
 import user from './user'
 import Layout from '@/layout'

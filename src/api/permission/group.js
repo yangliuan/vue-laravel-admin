@@ -37,6 +37,14 @@ export function detail(id) {
   })
 }
 
+export function groupSelectMenus(title) {
+  return request({
+    url: 'api/admin/group/select-menus',
+    method: 'get',
+    params: { title }
+  })
+}
+
 export function getRules(params) {
   return request({
     url: `api/admin/group/rules${params || ''}`,
