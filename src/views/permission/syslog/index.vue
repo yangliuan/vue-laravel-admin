@@ -23,7 +23,7 @@
 
       <el-table-column align="center" label="管理员信息" width="auto">
         <template v-slot="scope">
-          <span>{{ '登录账号:' + scope.row.admin.account + ' 名称:' + scope.row.admin.name + ' AID:' + scope.row.admin.id }}</span>
+          <span>{{ scope.row.admin.name +',账号:' + scope.row.admin.account + ' ID:' + scope.row.admin.id + ' IP:' + scope.row.ip }}</span>
         </template>
       </el-table-column>
 
