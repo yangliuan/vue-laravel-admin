@@ -58,7 +58,6 @@
           <el-button type="text" v-if="scope.row.id > 1" @click="destroyClick(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
-
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
@@ -66,7 +65,7 @@
 </template>
 
 <script>
-import { indexAdmin , switchStatus , destroyAdmin } from '@/api/permission/admin.js'
+import { indexAdmin , switchAdminStatus , destroyAdmin } from '@/api/permission/admin.js'
 import Pagination from '@/components/Pagination'
 
 export default {
@@ -96,19 +95,17 @@ export default {
       })
     },
     switchStatusClick(params) {
-      switchStatus(params.id).then(response => {
-        this.loading = true
+      this.loading = true
+      switchAdminStatus(params.id).then(response => {
         params.status = Math.abs(1 - params.status)
-      }).finally(()=>{
         this.loading = false
       })
     },
     destroyClick(params) {
+      this.loading = true
       destroyAdmin(params).then(response => {
-        this.loading = true
-        this.getList()
-      }).finally(()=>{
         this.loading = false
+        this.getList()
       })
     }
   }

@@ -1,21 +1,14 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function indexGroup(query) {
   return request({
-    url: `api/admin/group${params || ''}`,
-    method: 'get'
+    url: 'api/admin/group',
+    method: 'get',
+    params: query
   })
 }
 
-export function update(params, id) {
-  return request({
-    url: `api/admin/group/${id}`,
-    method: 'put',
-    data: params
-  })
-}
-
-export function add(params) {
+export function storeGroup(params) {
   return request({
     url: 'api/admin/group',
     method: 'post',
@@ -23,17 +16,32 @@ export function add(params) {
   })
 }
 
-export function del(id) {
+export function getGroup(id) {
+  return request({
+    url: `api/admin/group/${id}`,
+    method: 'get'
+  })
+}
+
+export function updateGroup(params, id) {
+  return request({
+    url: `api/admin/group/${id}`,
+    method: 'put',
+    data: params
+  })
+}
+
+export function destroyGroup(id) {
   return request({
     url: `api/admin/group/${id}`,
     method: 'DELETE'
   })
 }
 
-export function detail(id) {
+export function switchGroupStatus(id) {
   return request({
-    url: `api/admin/group/${id}`,
-    method: 'get'
+    url: `api/admin/group/status/${id}`,
+    method: 'put',
   })
 }
 
@@ -45,14 +53,15 @@ export function groupSelectMenus(title) {
   })
 }
 
-export function getRules(params) {
+export function getAllRules(params) {
   return request({
-    url: `api/admin/group/rules${params || ''}`,
-    method: 'get'
+    url: 'api/admin/group/rules',
+    method: 'get',
+    params: query
   })
 }
 
-export function updateRules(params, id) {
+export function setRules(params, id) {
   return request({
     url: `api/admin/group/set/${id}`,
     method: 'put',

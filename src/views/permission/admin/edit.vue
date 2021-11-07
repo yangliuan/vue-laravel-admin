@@ -5,7 +5,7 @@
 <script>
 import AdminDetail from './components/AdminDetail'
 export default {
-  name: 'EditAdmin',
+  name: 'EditAdminGroup',
   components: { AdminDetail }
 }
 </script>

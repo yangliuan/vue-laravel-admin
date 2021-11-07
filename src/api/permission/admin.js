@@ -38,7 +38,7 @@ export function destroyAdmin(id) {
   })
 }
 
-export function switchStatus(id) {
+export function switchAdminStatus(id) {
   return request({
     url: `api/admin/admin/status/${id}`,
     method: 'put',

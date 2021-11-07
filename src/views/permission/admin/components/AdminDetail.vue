@@ -47,7 +47,8 @@ const defaultForm = {
   status: 1,
   mobile: '',
   account: '',
-  password: ''
+  password: '',
+  id: ''
 }
 
 export default {
@@ -103,14 +104,15 @@ export default {
         if (valid) {
           this.loading = true
           if(this.isEdit === false){
-            alert('添加')
-            console.log(this.postForm)
             storeAdmin(this.postForm).then(response => {
               this.loading = false
               this.$router.push({path: '/permission/admin'})
             })
           }else{
-            alert('更新')
+            console.log(this.postForm)
+            updateAdmin(this.postForm,this.postForm.id).then(response => {
+              this.loading = false
+            })
           }
         } else {
           console.log('error submit!!');
