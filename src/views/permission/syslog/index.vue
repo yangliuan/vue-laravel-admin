@@ -35,9 +35,21 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="请求记录" width="auto">
+      <el-table-column align="center" label="请求方法" width="80">
         <template v-slot="scope">
-          <span>{{ scope.row.method + ' ' + JSON.stringify(scope.row.params) }}</span>
+          <span>{{ scope.row.method }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="请求路径" width="auto">
+        <template v-slot="scope">
+          <span>{{ scope.row.path }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="请求参数" width="auto">
+        <template v-slot="scope">
+          <span>{{ JSON.stringify(scope.row.params) }}</span>
         </template>
       </el-table-column>
 
@@ -48,7 +60,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.per_page" @pagination="getList" />
   </div>
 </template>
 
@@ -66,7 +78,9 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
+        per_page: 20,
+      },
+      searchForm: {
         start_at: '',
         end_at: '',
       },
@@ -103,6 +117,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
+      console.log(this.listQuery)
       syslog(this.listQuery).then(response => {
         this.list = response.data
         this.total = response.total
@@ -111,10 +126,9 @@ export default {
     },
     searchSubmit() {
       this.loading = true
-      syslog(query).then((res) => {
+      syslog(this.listQuery).then((res) => {
         this.tableData = res.data
         this.total = res.total
-      }).finally(() => {
         this.loading = false
       })
     }

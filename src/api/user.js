@@ -19,7 +19,7 @@ export function syslog(query) {
   return request({
     url: 'api/admin/syslogs',
     method: 'get',
-    data: query
+    params: query
   })
 }
 

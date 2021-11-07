@@ -112,7 +112,7 @@ export const constantRoutes = [
         hidden: true,
       },
       {
-        path: '/syslog',
+        path: 'syslog',
         name: 'syslog',
         component: () => import('@/views/permission/syslog/index'),
         meta: { title: '系统日志' }
