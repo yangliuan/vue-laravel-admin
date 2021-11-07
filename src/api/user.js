@@ -17,8 +17,9 @@ export function getInfo() {
 
 export function syslog(query) {
   return request({
-    url: `api/admin/syslogs${query || ''}`,
+    url: 'api/admin/syslogs',
     method: 'get',
+    data: query
   })
 }
 
