@@ -43,6 +43,9 @@
             <el-button type="text">编辑</el-button>
           </router-link>
           <el-button type="text" @click="destroyClick(scope.row.id)">删除</el-button>
+          <router-link :to="'/permission/admingroup/rules/'+scope.row.id">
+            <el-button type="text">权限设置</el-button>
+          </router-link>
         </template>
       </el-table-column>
     </el-table>

@@ -112,6 +112,13 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'admingroup/rules/:id(\\d+)',
+        name: 'SetRules',
+        component: () => import('@/views/permission/group/rules'),
+        meta: { title: '权限设置' },
+        hidden: true
+      },
+      {
         path: 'syslog',
         name: 'syslog',
         component: () => import('@/views/permission/syslog/index'),

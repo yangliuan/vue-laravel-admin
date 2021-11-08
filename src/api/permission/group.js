@@ -61,6 +61,13 @@ export function getAllRules(query) {
   })
 }
 
+export function getGroupRules(id) {
+  return request({
+    url: `api/admin/group/setting/${id}`,
+    method: 'get'
+  })
+}
+
 export function setRules(params, id) {
   return request({
     url: `api/admin/group/set/${id}`,
