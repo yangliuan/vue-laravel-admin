@@ -41,7 +41,7 @@ export function destroyGroup(id) {
 export function switchGroupStatus(id) {
   return request({
     url: `api/admin/group/status/${id}`,
-    method: 'put',
+    method: 'put'
   })
 }
 
@@ -53,7 +53,7 @@ export function groupSelectMenus(title) {
   })
 }
 
-export function getAllRules(params) {
+export function getAllRules(query) {
   return request({
     url: 'api/admin/group/rules',
     method: 'get',

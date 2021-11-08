@@ -10,7 +10,7 @@ const service = axios.create({
   timeout: 5000, // request timeout
   headers: {
     'Accept': 'application/json',
-    'Content-Type': 'application/json', // json格式数据
+    'Content-Type': 'application/json' // json格式数据
   }
 })
 
@@ -46,33 +46,36 @@ service.interceptors.response.use(
     */
   error => {
     switch (error.response.status) {
-      case 422:
-        let data = error.response.data.errors
+      case 422: {
+        const data = error.response.data.errors
         let content = ''
-
-        Object.keys(data).map(function (key) {
-          let value = data[key]
+        Object.keys(data).map(function(key) {
+          const value = data[key]
           content = value[0]
         })
-
         Message.error(content)
         break
-      case 403:
+      }
+      case 403: {
         Message.error(error.response.data.message || '您没有此操作权限！')
         break
-      case 401:
+      }
+      case 401: {
         if (window.location.pathname !== '/login') {
-            window.location.href = '/login'
+          window.location.href = '/login'
         }
         break
-      case 429:
+      }
+      case 429: {
         Message.error(error.response.data.message || '请求过于频繁！')
         break
+      }
       case 500:
       case 501:
       case 503:
-      default:
+      default: {
         Message.error('服务器错误!')
+      }
     }
 
     return Promise.reject(error.response)

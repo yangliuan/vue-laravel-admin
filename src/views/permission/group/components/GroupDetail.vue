@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { storeGroup , getGroup , updateGroup } from '@/api/permission/group.js'
+import { storeGroup, getGroup, updateGroup } from '@/api/permission/group.js'
 
 const defaultForm = {
   title: '',
@@ -46,8 +46,8 @@ export default {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       rules: {
-        title: [{ required: true, message: '请输入管理组名称', trigger: 'blur' },{ min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
-        status: [{ required: true, message: '请选择启用状态', trigger: 'blur' }],
+        title: [{ required: true, message: '请输入管理组名称', trigger: 'blur' }, { min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
+        status: [{ required: true, message: '请选择启用状态', trigger: 'blur' }]
       },
       status_radios: [
         { label: '启用', value: 1 },
@@ -71,22 +71,22 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true
-          if(this.isEdit === false){
+          if (this.isEdit === false) {
             storeGroup(this.postForm).then(response => {
               this.loading = false
-              this.$router.push({path: '/permission/admingroup'})
+              this.$router.push({ path: '/permission/admingroup' })
             })
-          }else{
+          } else {
             console.log(this.postForm)
-            updateGroup(this.postForm,this.postForm.id).then(response => {
+            updateGroup(this.postForm, this.postForm.id).then(response => {
               this.loading = false
             })
           }
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     }
   }
 }

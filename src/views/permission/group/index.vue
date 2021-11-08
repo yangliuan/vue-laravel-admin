@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { indexGroup , destroyGroup , switchGroupStatus } from '@/api/permission/group.js'
+import { indexGroup, destroyGroup, switchGroupStatus } from '@/api/permission/group.js'
 import Pagination from '@/components/Pagination'
 
 export default {

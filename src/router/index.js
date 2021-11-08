@@ -82,14 +82,14 @@ export const constantRoutes = [
         name: 'CreateAdmin',
         component: () => import('@/views/permission/admin/create'),
         meta: { title: '添加管理员' },
-        hidden: true,
+        hidden: true
       },
       {
         path: 'admin/edit/:id(\\d+)',
         name: 'administrator edit',
         component: () => import('@/views/permission/admin/edit'),
         meta: { title: '编辑管理员' },
-        hidden: true,
+        hidden: true
       },
       {
         path: 'admingroup',
@@ -102,14 +102,14 @@ export const constantRoutes = [
         name: 'CreateAdmingroup',
         component: () => import('@/views/permission/group/create'),
         meta: { title: '添加管理组' },
-        hidden: true,
+        hidden: true
       },
       {
         path: 'admingroup/edit/:id(\\d+)',
         name: 'EditAdmingroup',
         component: () => import('@/views/permission/group/edit'),
         meta: { title: '更新管理组' },
-        hidden: true,
+        hidden: true
       },
       {
         path: 'syslog',
@@ -127,7 +127,7 @@ export const otherRouter = [{ path: '*', redirect: '/404', hidden: true }]
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
-//export const asyncRoutes = PermissionRouteMap
+// export const asyncRoutes = PermissionRouteMap
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

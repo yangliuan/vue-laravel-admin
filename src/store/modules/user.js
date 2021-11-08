@@ -48,7 +48,7 @@ const actions = {
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
       getInfo().then(response => {
-        const { admin,menu } = response
+        const { admin, menu } = response
         commit('SET_NAME', admin.name)
         commit('SET_MENU', menu)
         resolve(response)

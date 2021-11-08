@@ -8,7 +8,7 @@
 
       <el-form-item label="归属管理组" prop="group_id">
         <el-select v-model="postForm.group_id" filterable placeholder="请选择管理组" :loading="loading">
-          <el-option v-for="item in group_select_menus" :key="item.id" :label="item.title" :value="item.id"></el-option>
+          <el-option v-for="item in group_select_menus" :key="item.id" :label="item.title" :value="item.id" />
         </el-select>
       </el-form-item>
 
@@ -64,12 +64,12 @@ export default {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       rules: {
-        name: [{ required: true, message: '请输入管理员名称', trigger: 'blur' },{ min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入管理员名称', trigger: 'blur' }, { min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
         group_id: [{ required: true, message: '请选择管理组', trigger: 'blur' }],
         status: [{ required: true, message: '请选择启用状态', trigger: 'blur' }],
         mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
-        account: [{ required: true, message: '请输入登录账号', trigger: 'blur' },{ min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' },{ min: 6, max: 20, message: '长度在6~20之间', trigger: 'blur' }],
+        account: [{ required: true, message: '请输入登录账号', trigger: 'blur' }, { min: 0, max: 20, message: '长度在0~20之间', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }, { min: 6, max: 20, message: '长度在6~20之间', trigger: 'blur' }]
       },
       group_select_menus: [],
       status_radios: [
@@ -103,22 +103,22 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true
-          if(this.isEdit === false){
+          if (this.isEdit === false) {
             storeAdmin(this.postForm).then(response => {
               this.loading = false
-              this.$router.push({path: '/permission/admin'})
+              this.$router.push({ path: '/permission/admin' })
             })
-          }else{
+          } else {
             console.log(this.postForm)
-            updateAdmin(this.postForm,this.postForm.id).then(response => {
+            updateAdmin(this.postForm, this.postForm.id).then(response => {
               this.loading = false
             })
           }
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     }
   }
 }
