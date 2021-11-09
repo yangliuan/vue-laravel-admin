@@ -10,13 +10,13 @@
 export function getChildrenPids(tree) {
   var pids = []
   tree.forEach(function(item, index) {
-    if (item.hasOwnProperty('children')) {
+    if (Object.prototype.hasOwnProperty.call(item, 'children')) {
       pids.push(item.id)
       item.children.forEach(function(sub_item, sub_index) {
-        if (sub_item.hasOwnProperty('children')) {
+        if (Object.prototype.hasOwnProperty.call(sub_item, 'children')) {
           pids.push(sub_item.id)
           sub_item.children.forEach(function(ssub_item, ssub_index) {
-            if (ssub_item.hasOwnProperty('children')) {
+            if (Object.prototype.hasOwnProperty.call(ssub_item, 'children')) {
               pids.push(ssub_item.id)
             }
           })
