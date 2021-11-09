@@ -74,7 +74,6 @@ export default {
           if (this.isEdit === false) {
             storeGroup(this.postForm).then(response => {
               this.loading = false
-              this.$router.push({ path: '/permission/admingroup' })
             })
           } else {
             console.log(this.postForm)
@@ -82,6 +81,8 @@ export default {
               this.loading = false
             })
           }
+          this.$message({ message: '保存成功', type: 'success' })
+          this.$router.push({ path: '/permission/admingroup' })
         } else {
           console.log('error submit!!')
           return false

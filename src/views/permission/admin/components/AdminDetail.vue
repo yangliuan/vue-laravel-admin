@@ -3,16 +3,17 @@
 
     <el-form ref="postForm" :model="postForm" :rules="rules" label-width="100px" class="form-container">
       <el-form-item label="管理员名字" prop="name">
-        <el-input v-model="postForm.name" placeholder="请输入管理员名称" clearable />
+        <el-input v-if="!postForm.id || postForm.id > 1" v-model="postForm.name" placeholder="请输入管理员名称" clearable />
+        <el-input v-else v-model="postForm.name" :disabled="true" />
       </el-form-item>
 
-      <el-form-item label="归属管理组" prop="group_id">
+      <el-form-item v-if="!postForm.id || postForm.id > 1" label="归属管理组" prop="group_id">
         <el-select v-model="postForm.group_id" filterable placeholder="请选择管理组" :loading="loading">
           <el-option v-for="item in group_select_menus" :key="item.id" :label="item.title" :value="item.id" />
         </el-select>
       </el-form-item>
 
-      <el-form-item label="启用状态" prop="status">
+      <el-form-item v-if="!postForm.id || postForm.id > 1" label="启用状态" prop="status">
         <el-radio v-for="(item, index) in status_radios" :key="index" v-model="postForm.status" :label="item.value">{{ item.label }}</el-radio>
       </el-form-item>
 
@@ -90,6 +91,10 @@ export default {
     fetchData(id) {
       getAdmin(id).then(response => {
         this.postForm = response
+        if (id === 1) {
+          this.rules.group_id[0].required = false
+          this.rules.status[0].required = false
+        }
       })
     },
     getGroupSelectMenus(query) {
@@ -106,14 +111,18 @@ export default {
           if (this.isEdit === false) {
             storeAdmin(this.postForm).then(response => {
               this.loading = false
-              this.$router.push({ path: '/permission/admin' })
             })
           } else {
-            console.log(this.postForm)
+            // console.log(this.postForm)
             updateAdmin(this.postForm, this.postForm.id).then(response => {
               this.loading = false
             })
           }
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          })
+          this.$router.push({ path: '/permission/admin' })
         } else {
           console.log('error submit!!')
           return false
