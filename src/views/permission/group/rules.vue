@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-tree ref="tree" :data="data" show-checkbox default-expand-all node-key="id" highlight-current :props="defaultProps" />
     <div style="margin:20px">
-      <el-button size="small" @click="saveRules">保存</el-button>
-      <el-button size="small" @click="resetChecked">清空</el-button>
+      <el-button type="primary" @click="saveRules">保存</el-button>
+      <el-button type="primary" @click="resetChecked">清空</el-button>
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
       getAllRules().then(response => {
         this.data = response
         getGroupRules(this.id).then(response => {
-          console.log(response)
+          // console.log(response)
           if (response.length > 0) {
             const pids = getChildrenPids(this.data)
             this.$refs.tree.setCheckedKeys(arrayDiff(pids, response))
@@ -44,6 +44,8 @@ export default {
     saveRules() {
       setRules({ rules: this.$refs.tree.getCheckedKeys() }, this.id).then(response => {
         // console.log(response)
+        this.$message({ message: '保存成功', type: 'success' })
+        this.$router.push({ path: '/permission/admingroup' })
       })
     },
     resetChecked() {
