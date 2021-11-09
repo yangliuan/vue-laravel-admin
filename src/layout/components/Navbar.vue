@@ -109,7 +109,7 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        margin-top: 0px;
         position: relative;
 
         .name {
