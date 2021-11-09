@@ -48,6 +48,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/403',
+    component: () => import('@/views/error-page/403'),
+    hidden: true
+  },
+  {
     path: '/404',
     component: () => import('@/views/error-page/404'),
     hidden: true
@@ -88,8 +93,7 @@ export const constantRoutes = [
         path: 'admin/edit/:id(\\d+)',
         name: 'administrator edit',
         component: () => import('@/views/permission/admin/edit'),
-        meta: { title: '编辑管理员' },
-        hidden: true
+        meta: { title: '编辑管理员' }
       },
       {
         path: 'admingroup',
@@ -127,8 +131,6 @@ export const constantRoutes = [
     ]
   }
 ]
-
-export const otherRouter = [{ path: '*', redirect: '/404', hidden: true }]
 
 /**
  * asyncRoutes

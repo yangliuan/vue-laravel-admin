@@ -56,14 +56,18 @@ service.interceptors.response.use(
         Message.error(content)
         break
       }
-      case 403: {
-        Message.error(error.response.data.message || '您没有此操作权限！')
-        break
-      }
       case 401: {
         if (window.location.pathname !== '/login') {
           window.location.href = '/login'
         }
+        break
+      }
+      case 403: {
+        Message.error(error.response.data.message || '您没有此操作权限！')
+        break
+      }
+      case 404: {
+        window.location.href = '/404'
         break
       }
       case 429: {
