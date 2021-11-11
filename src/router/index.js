@@ -69,12 +69,20 @@ export const constantRoutes = [
         meta: { title: '仪表盘', icon: 'dashboard', affix: true }
       }
     ]
-  },
+  }
+]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+
+export const asyncRoutes = [
   {
     path: '/permission',
     component: Layout,
     name: 'permission',
-    meta: { title: '权限管理', icon: 'lock', affix: true },
+    meta: { title: '权限管理', icon: 'lock' },
     children: [
       {
         path: 'admin',
@@ -125,18 +133,16 @@ export const constantRoutes = [
       },
       {
         path: 'syslog',
-        name: 'syslog',
+        name: 'Syslog',
         component: () => import('@/views/permission/syslog/index'),
         meta: { title: '系统日志' }
-      }
+      },
+
+      // 404 page must be placed at the end !!!
+      { path: '*', redirect: '/404', hidden: true }
     ]
   }
 ]
-
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
