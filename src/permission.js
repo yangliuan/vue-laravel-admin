@@ -35,11 +35,9 @@ router.beforeEach(async(to, from, next) => {
           // 不存在管理员信息 则重新获取管理员信息
           await store.dispatch('user/getInfo')
           // generate accessible routes map based on roles
-          const accessRoutes = await store.dispatch('permission/generateRoutes',store.getters.menu)
-          // console.log(JSON.stringify(accessRoutes, null, 4))
+          const accessRoutes = await store.dispatch('permission/generateRoutes', store.getters.menu)
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
-
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
@@ -54,7 +52,6 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

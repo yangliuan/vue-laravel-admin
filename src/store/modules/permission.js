@@ -1,37 +1,53 @@
 import { asyncRoutes, constantRoutes } from '@/router'
 
 /**
- * Use meta.role to determine if the current user has permission
- * @param roles
+ * 根据指定属性的值，过滤数组对象
+ * @param arr_obj
  * @param route
  */
-function findMenu(menu, route_path) {
-  for (const item of menu) {
-    if (item.gui_behavior === route_path) return item
+function filterArrObj(arr_obj, path) {
+  for (const item of arr_obj) {
+    if (item.gui_behavior === path) return item
     if (item.children && item.children.length) {
-      const _item = filterTableMater(route_path, item.children)
+      const _item = filterArrObj(item.children, path)
       if (_item) return _item
     }
   }
-  return false
 }
 
 /**
- * Filter asynchronous routing tables by recursion
+ * 替换对象属性
+ * @param {*} route
+ * @param {*} rule
+ * @returns
+ */
+function replaceRouteProperty(route, rule) {
+  if (rule.title) {
+    route.meta.title = rule.title
+  }
+
+  if (rule.icon) {
+    route.meta.icon = rule.icon
+  }
+
+  return route
+}
+
+/**
+ * 根据权限menu过滤异步路由
  * @param routes asyncRoutes
  * @param roles
  */
 export function filterAsyncRoutes(routes, menu) {
   const res = []
-
   routes.forEach(route => {
-    const tmp = { ...route }
-    let rule = findMenu(menu, tmp.path)
-    //console.log(rule)
+    let tmp = { ...route }
+    const rule = filterArrObj(menu, tmp.path)
     if (rule || tmp.children) {
       if (tmp.children) {
-        //tmp.children = filterAsyncRoutes(tmp.children, menu)
+        tmp.children = filterAsyncRoutes(tmp.children, menu)
       }
+      tmp = replaceRouteProperty(tmp, rule)
       res.push(tmp)
     }
   })
@@ -55,9 +71,12 @@ const actions = {
   generateRoutes({ commit }, menu) {
     return new Promise(resolve => {
       let accessedRoutes
-      let test = filterAsyncRoutes(asyncRoutes, menu)
-      console.log(test)
-      accessedRoutes = asyncRoutes
+      if (menu.length > 0) {
+        accessedRoutes = filterAsyncRoutes(asyncRoutes, menu)
+      } else {
+        accessedRoutes = []
+      }
+      // console.log(JSON.stringify(accessedRoutes,null,4))
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })
