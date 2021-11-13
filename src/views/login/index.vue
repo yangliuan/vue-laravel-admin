@@ -111,7 +111,6 @@ export default {
               path: this.redirect || '/'
             })
             this.loading = false
-            console.log('login.vue')
           }).catch(() => {
             this.loading = false
           })

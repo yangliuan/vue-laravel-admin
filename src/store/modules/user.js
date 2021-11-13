@@ -37,7 +37,6 @@ const actions = {
         commit('SET_TOKEN', token)
         setToken(token)
         resolve()
-        console.log('login')
       }).catch(error => {
         reject(error)
       })

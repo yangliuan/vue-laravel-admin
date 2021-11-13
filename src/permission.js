@@ -35,7 +35,7 @@ router.beforeEach(async(to, from, next) => {
           // 不存在管理员信息 则重新获取管理员信息
           await store.dispatch('user/getInfo')
           // generate accessible routes map based on roles
-          const accessRoutes = await store.dispatch('permission/generateRoutes', 'admin')
+          const accessRoutes = await store.dispatch('permission/generateRoutes',store.getters.menu)
           // console.log(JSON.stringify(accessRoutes, null, 4))
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
