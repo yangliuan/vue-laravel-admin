@@ -73,6 +73,14 @@ export const constantRoutes = [
 ]
 
 /**
+ * errorRoutes
+ */
+
+export const errorRoutes = [
+  { path: '*', redirect: '/404', hidden: true }
+]
+
+/**
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
@@ -136,10 +144,7 @@ export const asyncRoutes = [
         name: 'Syslog',
         component: () => import('@/views/permission/syslog/index'),
         meta: { title: '系统日志' }
-      },
-
-      // 404 page must be placed at the end !!!
-      { path: '*', redirect: '/404', hidden: true }
+      }
     ]
   }
 ]

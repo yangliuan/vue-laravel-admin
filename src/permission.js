@@ -1,4 +1,4 @@
-import router from './router'
+import router, { errorRoutes } from './router'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
@@ -37,7 +37,7 @@ router.beforeEach(async(to, from, next) => {
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', store.getters.menu)
           // dynamically add accessible routes
-          router.addRoutes(accessRoutes)
+          router.addRoutes([...accessRoutes, ...errorRoutes])
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
