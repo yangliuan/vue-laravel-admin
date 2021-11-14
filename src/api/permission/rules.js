@@ -52,3 +52,10 @@ export function switchRulesLogStatus(id) {
   })
 }
 
+export function rulesSelectMenus() {
+  return request({
+    url: 'api/admin/rules/select-menus',
+    method: 'get'
+  })
+}
+

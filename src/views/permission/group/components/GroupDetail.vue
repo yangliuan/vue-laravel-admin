@@ -34,7 +34,7 @@ const defaultForm = {
 }
 
 export default {
-  name: 'GroupDetail',
+  name: 'AdminGroupDetail',
   props: {
     isEdit: {
       type: Boolean,

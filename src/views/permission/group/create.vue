@@ -1,11 +1,11 @@
 <template>
-  <group-detail :is-edit="false" />
+  <admin-group-detail :is-edit="false" />
 </template>
 
 <script>
-import GroupDetail from './components/GroupDetail'
+import AdminGroupDetail from './components/GroupDetail'
 export default {
-  name: 'CreateGroup',
-  components: { GroupDetail }
+  name: 'CreateAdminGroup',
+  components: { AdminGroupDetail }
 }
 </script>

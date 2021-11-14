@@ -25,25 +25,25 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="GUI类型" width="90">
+      <el-table-column align="center" label="gui类型" width="90">
         <template v-slot="scope">
           <el-tag>{{ scope.row.gui_type === 1 ? '主菜单' : scope.row.gui_type === 2 ? '子菜单' : '路由|按钮' }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="GUI规则" width="auto">
+      <el-table-column align="center" label="gui规则" width="auto">
         <template v-slot="scope">
           <span>{{ scope.row.gui_behavior }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="API方法" width="100">
+      <el-table-column align="center" label="api方法" width="100">
         <template v-slot="scope">
           <el-tag>{{ scope.row.api_http_method }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="API路由和参数" width="auto">
+      <el-table-column align="center" label="api路由和参数" width="auto">
         <template v-slot="scope">
           <span>{{ scope.row.params ? scope.row.api_behavior + '?' + scope.row.params : scope.row.api_behavior }}</span>
         </template>
