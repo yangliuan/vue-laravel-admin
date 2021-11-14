@@ -140,6 +140,26 @@ export const asyncRoutes = [
         hidden: true
       },
       {
+        path: 'adminrules',
+        name: 'IndexAdminrules',
+        component: () => import('@/views/permission/rules/index'),
+        meta: { title: '权限规则' }
+      },
+      {
+        path: 'adminrules/create',
+        name: 'CreateAdminrules',
+        component: () => import('@/views/permission/rules/create'),
+        meta: { title: '添加权限规则' },
+        hidden: true
+      },
+      {
+        path: 'adminrules/edit/:id(\\d+)',
+        name: 'EditAdminrules',
+        component: () => import('@/views/permission/rules/edit'),
+        meta: { title: '更新权限规则' },
+        hidden: true
+      },
+      {
         path: 'syslog',
         name: 'Syslog',
         component: () => import('@/views/permission/syslog/index'),
