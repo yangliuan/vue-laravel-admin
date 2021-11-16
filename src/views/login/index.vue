@@ -110,7 +110,6 @@ export default {
             this.$router.push({
               path: this.redirect || '/dashboard'
             })
-            this.loading = false
           }).catch(() => {
             this.loading = false
           })

@@ -30,7 +30,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('postForm')">保存</el-button>
+        <el-button type="primary" :loading="loading" @click="submitForm('postForm')">保存</el-button>
       </el-form-item>
 
     </el-form>
@@ -99,9 +99,7 @@ export default {
     },
     getGroupSelectMenus(query) {
       groupSelectMenus(query).then(response => {
-        this.loading = true
         this.group_select_menus = response
-        this.loading = false
       })
     },
     submitForm(formName) {
@@ -109,20 +107,20 @@ export default {
         if (valid) {
           this.loading = true
           if (this.isEdit === false) {
-            storeAdmin(this.postForm).then(response => {
+            storeAdmin(this.postForm).then(() => {
+              this.$message({ message: '保存成功', type: 'success' })
+              this.$router.push({ path: '/permission/admin' })
+            }).catch(() => {
               this.loading = false
             })
           } else {
-            // console.log(this.postForm)
-            updateAdmin(this.postForm, this.postForm.id).then(response => {
+            updateAdmin(this.postForm, this.postForm.id).then(() => {
+              this.$message({ message: '保存成功', type: 'success' })
+              this.$router.push({ path: '/permission/admin' })
+            }).catch(() => {
               this.loading = false
             })
           }
-          this.$message({
-            message: '保存成功',
-            type: 'success'
-          })
-          this.$router.push({ path: '/permission/admin' })
         } else {
           console.log('error submit!!')
           return false

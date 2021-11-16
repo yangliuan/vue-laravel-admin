@@ -142,7 +142,7 @@ export default {
       })
     },
     submitForm(formName) {
-      this.$refs[formName].validate(async(valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true
           const tmp = JSON.parse(JSON.stringify(this.postForm))
@@ -151,14 +151,22 @@ export default {
           tmp.api_http_method = this.postForm.api_http_method.join(',')
 
           if (this.isEdit === false) {
-            await storeRules(tmp)
+            storeRules(tmp).then(() => {
+              this.$message({ message: '保存成功', type: 'success' })
+              this.$router.push({ path: '/permission/adminrules' })
+            }).catch(() => {
+              this.loading = false
+            })
           } else {
-            await updateRules(tmp, tmp.id)
+            updateRules(tmp, tmp.id).then(() => {
+              this.$message({ message: '保存成功', type: 'success' })
+              this.$router.push({ path: '/permission/adminrules' })
+            }).catch(() => {
+              this.loading = false
+            })
           }
 
           this.loading = false
-          this.$message({ message: '保存成功', type: 'success' })
-          this.$router.push({ path: '/permission/adminrules' })
         } else {
           console.log('error submit!!')
           return false

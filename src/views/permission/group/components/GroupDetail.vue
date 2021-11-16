@@ -15,7 +15,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('postForm')">保存</el-button>
+        <el-button type="primary" :loading="loading" @click="submitForm('postForm')">保存</el-button>
       </el-form-item>
 
     </el-form>
@@ -72,17 +72,20 @@ export default {
         if (valid) {
           this.loading = true
           if (this.isEdit === false) {
-            storeGroup(this.postForm).then(response => {
+            storeGroup(this.postForm).then(() => {
+              this.$message({ message: '保存成功', type: 'success' })
+              this.$router.push({ path: '/permission/admingroup' })
+            }).catch(() => {
               this.loading = false
             })
           } else {
-            console.log(this.postForm)
-            updateGroup(this.postForm, this.postForm.id).then(response => {
+            updateGroup(this.postForm, this.postForm.id).then(() => {
+              this.$message({ message: '保存成功', type: 'success' })
+              this.$router.push({ path: '/permission/admingroup' })
+            }).catch(() => {
               this.loading = false
             })
           }
-          this.$message({ message: '保存成功', type: 'success' })
-          this.$router.push({ path: '/permission/admingroup' })
         } else {
           console.log('error submit!!')
           return false
