@@ -77,7 +77,7 @@ const actions = {
         accessedRoutes = []
       }
       // 前端开发模式展示本地所有路由
-      accessedRoutes = asyncRoutes
+      // accessedRoutes = asyncRoutes
       // console.log(JSON.stringify(accessedRoutes,null,4))
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

@@ -94,7 +94,7 @@ export default {
         gui_behavior: [{ required: true, message: '请输入gui规则', trigger: 'blur' }, { min: 0, max: 255, message: '长度在0~255之间', trigger: 'blur' }],
         api_http_method: [{ required: true, message: '请选择api请求方法', trigger: 'blur' }],
         api_behavior: [{ required: true, message: '请输入api路由', trigger: 'blur' }, { min: 0, max: 255, message: '长度在0~255之间', trigger: 'blur' }],
-        params: [{ required: true, message: '请输入api路由参数', trigger: 'blur' }, { min: 0, max: 255, message: '长度在0~255之间', trigger: 'blur' }],
+        params: [{ required: false, message: '请输入api路由参数', trigger: 'blur' }, { min: 0, max: 255, message: '长度在0~255之间', trigger: 'blur' }],
         status: [{ required: true, message: '请选择启用状态', trigger: 'blur' }],
         is_log: [{ required: true, message: '请选择日志状态', trigger: 'blur' }],
         sort: [{ required: true, message: '请输入排序值', trigger: 'blur' }]
@@ -142,22 +142,21 @@ export default {
       })
     },
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async(valid) => {
         if (valid) {
-          const key = this.postForm.pid.length - 1
-          this.postForm.pid = this.postForm.pid[key]
-          this.postForm.api_http_method = this.postForm.api_http_method.join()
           this.loading = true
+          const tmp = JSON.parse(JSON.stringify(this.postForm))
+          const key = tmp.pid.length - 1
+          tmp.pid = this.postForm.pid[key]
+          tmp.api_http_method = this.postForm.api_http_method.join(',')
+
           if (this.isEdit === false) {
-            storeRules(this.postForm).then(response => {
-              this.loading = false
-            })
+            await storeRules(tmp)
           } else {
-            console.log(this.postForm)
-            updateRules(this.postForm, this.postForm.id).then(response => {
-              this.loading = false
-            })
+            await updateRules(tmp, tmp.id)
           }
+
+          this.loading = false
           this.$message({ message: '保存成功', type: 'success' })
           this.$router.push({ path: '/permission/adminrules' })
         } else {
