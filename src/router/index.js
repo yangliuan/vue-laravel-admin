@@ -129,7 +129,7 @@ export const asyncRoutes = [
         path: 'admingroup/edit/:id(\\d+)',
         name: 'EditAdmingroup',
         component: () => import('@/views/permission/group/edit'),
-        meta: { title: '更新管理组' },
+        meta: { title: '编辑管理组' },
         hidden: true
       },
       {
@@ -156,7 +156,7 @@ export const asyncRoutes = [
         path: 'adminrules/edit/:id(\\d+)',
         name: 'EditAdminrules',
         component: () => import('@/views/permission/rules/edit'),
-        meta: { title: '更新权限规则' },
+        meta: { title: '编辑权限规则' },
         hidden: true
       },
       {
