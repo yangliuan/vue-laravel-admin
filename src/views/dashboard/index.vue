@@ -1,18 +1,38 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">昵称: {{ name }}</div>
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column prop="name" label="config name" width="180" />
+      <el-table-column prop="value" label="config value" width="auto" />
+    </el-table>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { getSysinfo } from '@/api/user.js'
 
 export default {
   name: 'Dashboard',
+  data() {
+    return {
+      tableData: []
+    }
+  },
   computed: {
     ...mapGetters([
       'name'
     ])
+  },
+  created() {
+    console.log(111)
+    this.getSystemInfo()
+  },
+  methods: {
+    async getSystemInfo() {
+      const response = await getSysinfo()
+      this.tableData = response
+    }
   }
 }
 </script>

@@ -15,6 +15,13 @@ export function getInfo() {
   })
 }
 
+export function getSysinfo() {
+  return request({
+    url: 'api/admin/sysinfo',
+    method: 'get'
+  })
+}
+
 export function syslog(query) {
   return request({
     url: 'api/admin/syslogs',
