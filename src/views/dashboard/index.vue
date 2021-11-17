@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">昵称: {{ name }}</div>
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="name" label="config name" width="180" />
       <el-table-column prop="value" label="config value" width="auto" />
@@ -25,7 +24,6 @@ export default {
     ])
   },
   created() {
-    console.log(111)
     this.getSystemInfo()
   },
   methods: {

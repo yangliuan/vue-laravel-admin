@@ -2,14 +2,14 @@ import { asyncRoutes, constantRoutes } from '@/router'
 
 /**
  * 根据指定属性的值，过滤数组对象
- * @param arr_obj
- * @param route
+ * @param arr_obj 数组对象
+ * @param name 要匹配的属性值
  */
-function filterArrObj(arr_obj, path) {
+function filterArrObj(arr_obj, name) {
   for (const item of arr_obj) {
-    if (item.gui_behavior === path) return item
+    if (item.gui_behavior === name) return item
     if (item.children && item.children.length) {
-      const _item = filterArrObj(item.children, path)
+      const _item = filterArrObj(item.children, name)
       if (_item) return _item
     }
   }
@@ -33,20 +33,33 @@ function replaceRouteProperty(route, rule) {
   return route
 }
 
+
+
 /**
  * 根据权限menu过滤异步路由
  * @param routes asyncRoutes
- * @param roles
+ * @param menu 接口返回的权限菜单
+ * @param permisson_menu_level 权限菜单等级，2表示只验证到2级，3表示验证到3级
  */
-export function filterAsyncRoutes(routes, menu) {
+
+//默认权限菜单等级
+window.current_permisson_menu_children_level = 1;
+
+export function filterAsyncRoutes(routes, menu, permisson_menu_level) {
   const res = []
+
   routes.forEach(route => {
     let tmp = { ...route }
-    const rule = filterArrObj(menu, tmp.path)
-    if (rule || tmp.children) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, menu)
+    //根据路由name 匹配 接口menu的gui_behavior
+    const rule = filterArrObj(menu, tmp.name)
+
+    if (rule) {
+      //如果存在子菜单 并且 当前权限菜单等级 小于 接口返回的权限菜单等级 则递归过滤子菜单
+      if (tmp.children && window.current_permisson_menu_children_level < permisson_menu_level) {
+        window.current_permisson_menu_children_level++
+        tmp.children = filterAsyncRoutes(tmp.children, menu, permisson_menu_level)
       }
+
       tmp = replaceRouteProperty(tmp, rule)
       res.push(tmp)
     }
@@ -68,17 +81,18 @@ const mutations = {
 }
 
 const actions = {
-  generateRoutes({ commit }, menu) {
+  generateRoutes({ commit }, permission_menu) {
+
     return new Promise(resolve => {
       let accessedRoutes
-      if (menu.length > 0) {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, menu)
+      if (permission_menu.menu.length > 0) {
+        accessedRoutes = filterAsyncRoutes(asyncRoutes, permission_menu.menu, permission_menu.permisson_menu_level)
       } else {
         accessedRoutes = []
       }
       // 前端开发模式展示本地所有路由
-      // accessedRoutes = asyncRoutes
-      // console.log(JSON.stringify(accessedRoutes,null,4))
+      accessedRoutes = asyncRoutes
+      console.log(JSON.stringify(accessedRoutes,null,4))
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })

@@ -24,6 +24,9 @@ const mutations = {
   },
   SET_MENU: (state, menu) => {
     state.menu = menu
+  },
+  SET_PERMISSON_MENU_LEVEL: (state,permisson_menu_level) => {
+    state.permisson_menu_level = permisson_menu_level
   }
 }
 
@@ -47,9 +50,10 @@ const actions = {
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
       getInfo().then(response => {
-        const { admin, menu } = response
+        const { admin, menu, permisson_menu_level } = response
         commit('SET_NAME', admin.name)
         commit('SET_MENU', menu)
+        commit('SET_PERMISSON_MENU_LEVEL', permisson_menu_level)
         resolve(response)
       }).catch(error => {
         reject(error)

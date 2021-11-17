@@ -69,6 +69,89 @@ export const constantRoutes = [
         meta: { title: '仪表盘', icon: 'dashboard', affix: true }
       }
     ]
+  },
+  {
+    path: '/permission',
+    component: Layout,
+    name: 'permission',
+    meta: { title: '权限管理', icon: 'lock' },
+    children: [
+      {
+        path: 'admin',
+        name: 'IndexAdmin',
+        component: () => import('@/views/permission/admin/index'),
+        meta: { title: '管理员' },
+        children: [
+          {
+            path: 'create',
+            name: 'CreateAdmin',
+            component: () => import('@/views/permission/admin/create'),
+            meta: { title: '添加管理员' },
+            hidden: true
+          },
+          {
+            path: 'edit/:id(\\d+)',
+            name: 'administrator edit',
+            component: () => import('@/views/permission/admin/edit'),
+            meta: { title: '编辑管理员' },
+            hidden: true
+          },
+        ]
+      },
+      {
+        path: 'admingroup',
+        name: 'IndexAdmingroup',
+        component: () => import('@/views/permission/group/index'),
+        meta: { title: '管理组' }
+      },
+      {
+        path: 'admingroup/create',
+        name: 'CreateAdmingroup',
+        component: () => import('@/views/permission/group/create'),
+        meta: { title: '添加管理组' },
+        hidden: true
+      },
+      {
+        path: 'admingroup/edit/:id(\\d+)',
+        name: 'EditAdmingroup',
+        component: () => import('@/views/permission/group/edit'),
+        meta: { title: '编辑管理组' },
+        hidden: true
+      },
+      {
+        path: 'admingroup/rules/:id(\\d+)',
+        name: 'SetRules',
+        component: () => import('@/views/permission/group/rules'),
+        meta: { title: '权限设置' },
+        hidden: true
+      },
+      {
+        path: 'adminrules',
+        name: 'IndexAdminrules',
+        component: () => import('@/views/permission/rules/index'),
+        meta: { title: '权限规则' }
+      },
+      {
+        path: 'adminrules/create',
+        name: 'CreateAdminrules',
+        component: () => import('@/views/permission/rules/create'),
+        meta: { title: '添加权限规则' },
+        hidden: true
+      },
+      {
+        path: 'adminrules/edit/:id(\\d+)',
+        name: 'EditAdminrules',
+        component: () => import('@/views/permission/rules/edit'),
+        meta: { title: '编辑权限规则' },
+        hidden: true
+      },
+      {
+        path: 'syslog',
+        name: 'Syslog',
+        component: () => import('@/views/permission/syslog/index'),
+        meta: { title: '系统日志' }
+      }
+    ]
   }
 ]
 
