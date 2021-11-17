@@ -39,10 +39,6 @@ function replaceRouteProperty(route, rule) {
  * @param menu 接口返回的权限菜单
  * @param permisson_menu_level 权限菜单等级，2表示只验证到2级，3表示验证到3级
  */
-
-// 默认权限菜单等级
-window.current_permisson_menu_children_level = 1
-
 export function filterAsyncRoutes(routes, menu, permisson_menu_level) {
   const res = []
 
@@ -52,9 +48,8 @@ export function filterAsyncRoutes(routes, menu, permisson_menu_level) {
     const rule = filterArrObj(menu, tmp.name)
 
     if (rule) {
-      // 如果存在子菜单 并且 当前权限菜单等级 小于 接口返回的权限菜单等级 则递归过滤子菜单
-      if (tmp.children && window.current_permisson_menu_children_level < permisson_menu_level) {
-        window.current_permisson_menu_children_level++
+      // 如果存在子菜单
+      if (tmp.children) {
         tmp.children = filterAsyncRoutes(tmp.children, menu, permisson_menu_level)
       }
 
@@ -88,7 +83,7 @@ const actions = {
         accessedRoutes = []
       }
       // 前端开发模式展示本地所有路由
-      accessedRoutes = asyncRoutes
+      // accessedRoutes = asyncRoutes
       console.log(JSON.stringify(accessedRoutes, null, 4))
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

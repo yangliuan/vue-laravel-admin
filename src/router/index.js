@@ -89,7 +89,7 @@ export const asyncRoutes = [
   {
     path: '/permission',
     component: Layout,
-    name: 'permission',
+    name: 'Permission',
     meta: { title: '权限管理', icon: 'lock' },
     children: [
       {
