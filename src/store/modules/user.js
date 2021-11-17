@@ -25,7 +25,7 @@ const mutations = {
   SET_MENU: (state, menu) => {
     state.menu = menu
   },
-  SET_PERMISSON_MENU_LEVEL: (state,permisson_menu_level) => {
+  SET_PERMISSON_MENU_LEVEL: (state, permisson_menu_level) => {
     state.permisson_menu_level = permisson_menu_level
   }
 }

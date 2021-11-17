@@ -33,8 +33,6 @@ function replaceRouteProperty(route, rule) {
   return route
 }
 
-
-
 /**
  * 根据权限menu过滤异步路由
  * @param routes asyncRoutes
@@ -42,19 +40,19 @@ function replaceRouteProperty(route, rule) {
  * @param permisson_menu_level 权限菜单等级，2表示只验证到2级，3表示验证到3级
  */
 
-//默认权限菜单等级
-window.current_permisson_menu_children_level = 1;
+// 默认权限菜单等级
+window.current_permisson_menu_children_level = 1
 
 export function filterAsyncRoutes(routes, menu, permisson_menu_level) {
   const res = []
 
   routes.forEach(route => {
     let tmp = { ...route }
-    //根据路由name 匹配 接口menu的gui_behavior
+    // 根据路由name 匹配 接口menu的gui_behavior
     const rule = filterArrObj(menu, tmp.name)
 
     if (rule) {
-      //如果存在子菜单 并且 当前权限菜单等级 小于 接口返回的权限菜单等级 则递归过滤子菜单
+      // 如果存在子菜单 并且 当前权限菜单等级 小于 接口返回的权限菜单等级 则递归过滤子菜单
       if (tmp.children && window.current_permisson_menu_children_level < permisson_menu_level) {
         window.current_permisson_menu_children_level++
         tmp.children = filterAsyncRoutes(tmp.children, menu, permisson_menu_level)
@@ -82,7 +80,6 @@ const mutations = {
 
 const actions = {
   generateRoutes({ commit }, permission_menu) {
-
     return new Promise(resolve => {
       let accessedRoutes
       if (permission_menu.menu.length > 0) {
@@ -92,7 +89,7 @@ const actions = {
       }
       // 前端开发模式展示本地所有路由
       accessedRoutes = asyncRoutes
-      console.log(JSON.stringify(accessedRoutes,null,4))
+      console.log(JSON.stringify(accessedRoutes, null, 4))
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })
